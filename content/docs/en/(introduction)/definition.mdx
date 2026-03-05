@@ -20,43 +20,55 @@ Below are the key concepts you will repeatedly encounter while building or using
 ### Layer 0: Model Input/Output (Fundamentals)
 
 **1) LLM (Large Language Model)**
+
 A program that takes text and generates text. You give it text; it continues writing or answers your question. In AI workflows, it is the core that handles "thinking" and "decision-making," but that is also its limit.
 
 **2) Token**
+
 The smallest unit a model processes and also the billing unit. One token is roughly 0.75 English words on average. When you call a model, both input and output are billed by token count, and prices vary by model. For example, Claude Opus is expensive.
 
 **3) Context**
+
 Everything the model actually sees in this call: conversation history, files you provide, retrieved materials, tool results, and so on.
 
 **3) Context window**
+
 The upper limit of how much content a model can see in one call. If the input exceeds this limit, earlier content gets truncated, which causes information loss.
 
 **4) Prompt**
+
 Your input to the model, including instructions, questions, examples, and background materials. In short, what you want it to do this time.
 
 **5) System prompt**
+
 Rules with higher priority than normal prompts. They define global behavior, response style, and safety boundaries. Usually configured before the conversation starts and effective for the whole session.
 
 **6) AGENTS.md**
+
 A "project handbook" in a code repository that tells a coding agent how to run and test the project, coding style, and related conventions.
 
 ### Layer 1: Let the Model Take Actions and Output Parseable Results
 
 **7) Tools**
+
 Capabilities that let the model interact with the real outside world: reading/writing files, running commands, querying databases, calling APIs, and more. With tools, the model moves from "only talking" to "actually doing."
 
 **8) Function Calling**
+
 A mechanism where the model chooses which function to call and generates valid parameters (usually under JSON Schema), then your program executes the function and sends results back to the model for further reasoning.
 
 **9) Structured Output / Schema**
+
 Making the model output in a required format (such as JSON), so you can parse responses reliably instead of dealing with unstable free-form text.
 
 ### Layer 2: Agent Loop and ReAct (Where It Starts to Feel Like an Agent)
 
 **10) Agent**
+
 LLM + tools + current-progress state + an iterative execution loop. Instead of giving a one-shot answer, it thinks across multiple rounds, calls tools, adjusts plans based on results, and continues until completion.
 
 **11) Agentic loop**
+
 How an Agent works: decide the next step -> use a tool -> inspect the result -> choose the next step based on what happened. Repeat until the task is done or a stop condition is met.
 
 **12) ReAct**
@@ -81,29 +93,37 @@ In mainstream Agent systems, there are usually three information layers to maint
 - Evidence/audit logs (used for traceability and auditability; strictly speaking, not Memory itself, but often designed alongside the Memory system)
 
 **14) RAG (Retrieval-Augmented Generation)**
+
 Retrieve relevant materials from an external knowledge base first, then have the model generate answers based on those materials. A model cannot memorize everything because context windows are limited; RAG lets it look things up before answering.
 
 **15) Embeddings**
+
 Represent text/code as numeric vectors, making it possible for computers to measure semantic similarity. RAG largely relies on this to retrieve relevant information.
 
 **16) Vector Store**
+
 The storage/indexing layer that supports vector similarity search and performs fast nearest-neighbor retrieval.
 
 ### Layer 4: Engineering, Modularity, and Ecosystem Extensions (Closer to Real Products)
 
 **17) SKILL**
+
 A reusable package of process and conventions (required `SKILL.md` plus optional scripts/references). It usually supports lazy loading: inject metadata first, and load full content only when needed to save tokens.
 
 **18) SubAgent**
+
 Delegate subtasks to specialized agents to isolate context and avoid polluting the main conversation. Claude Code supports custom subagents for task division.
 
 **19) Multi-agent**
+
 Multiple agents working in parallel (for example, one explores the codebase, one implements, one writes tests), then aggregating results.
 
 **20) MCP (Model Context Protocol)**
+
 An open protocol standard proposed by Anthropic for communication between LLM applications (clients) and external systems (servers). It solves fragmented tool integration. Instead of writing one-off adapters for every tool, any tool that implements MCP can be used by any Agent, similar to how USB unified hardware connections.
 
 **21) Sandbox**
+
 A controlled execution environment for agents. It limits accessible resources within a safety boundary (for example, only specific working directories, restricted network access, command allowlists), reducing risks like deleting system files or leaking secrets.
 
 ## Commonly Confused Concepts
