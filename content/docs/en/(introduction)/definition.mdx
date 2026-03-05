@@ -74,11 +74,11 @@ This loop lets the model correct itself with external feedback instead of guessi
 
 **13) Memory**
 
-In mainstream Agent systems, there are usually at least three kinds of memory:
+In mainstream Agent systems, there are usually three information layers to maintain:
 
-- Working memory/current state (task progress, plans, TODOs, often only for the current loop)
-- Long-term memory (cross-session, possibly KV/documents/vectors)
-- Evidence/logs (traceable and auditable; not the same thing as memory)
+- Working memory/current state (task progress, plans, TODOs, usually only within the current loop)
+- Long-term memory (cross-session, possibly stored in KV, documents, or vector databases)
+- Evidence/audit logs (used for traceability and auditability; strictly speaking, not Memory itself, but often designed alongside the Memory system)
 
 **14) RAG (Retrieval-Augmented Generation)**
 Retrieve relevant materials from an external knowledge base first, then have the model generate answers based on those materials. A model cannot memorize everything because context windows are limited; RAG lets it look things up before answering.
