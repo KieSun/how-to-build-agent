@@ -1,5 +1,5 @@
 # deps
-/node_modules
+node_modules
 
 # generated content
 .source
@@ -10,6 +10,7 @@
 /out/
 /build
 *.tsbuildinfo
+dist
 
 # misc
 .DS_Store
@@ -24,3 +25,4 @@ yarn-error.log*
 .env*.local
 .vercel
 next-env.d.ts
+node_modules
